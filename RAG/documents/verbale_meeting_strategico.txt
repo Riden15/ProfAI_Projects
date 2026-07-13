@@ -1,0 +1,38 @@
+DATATRUST SOLUTIONS — VERBALE MEETING STRATEGICO
+Data: 15 Ottobre 2024 | Ore 09:00–13:00 | Sede: Milano
+
+PARTECIPANTI
+- Marco Rossi — CEO
+- Elena Bianchi — CFO
+- Alessandro Ferrari — CTO
+- Francesca Marino — Chief Compliance Officer (CCO)
+- Luca Conti — HR Director
+- Sofia Pellegrini — Chief Strategy Officer
+
+DELIBERE
+
+1. REVIEW PERFORMANCE Q3 2024
+Approvazione risultati Q3 e conferma budget Q4.
+La CFO ha evidenziato la necessita' di ottimizzare i costi IT nel Q4 per preservare il margine al 23%.
+
+2. PIANO STRATEGICO 2025-2027
+a) CRESCITA GEOGRAFICA: apertura sedi a Francoforte e Madrid entro Q2 2025 (EUR 2M).
+   Target: 20% dei ricavi da mercati esteri entro fine 2026.
+b) INNOVAZIONE AI: sviluppo piattaforma LLM proprietaria (budget R&D EUR 1,5M nel 2025).
+   Go-to-market previsto Q3 2025.
+c) CRESCITA INORGANICA: acquisizione software house RegTech (valutazione EUR 5-8M).
+
+3. COMPLIANCE E REGOLAMENTAZIONE
+Stato di conformita' GDPR all'87%. Identificati 3 gap critici da sanare entro Q1 2025.
+Investimento stimato: EUR 350.000. Priorita' ALTA per chiusura gap DORA.
+
+4. PIANO ASSUNZIONI 2025
+45 nuove risorse: data scientist (10), compliance specialist (12), cloud engineer (8),
+business developer (8), staff amministrativo (7).
+
+ACTION ITEMS
+- Marco Rossi: Finalizzare term sheet acquisizione RegTech — entro 30/11/2024
+- Elena Bianchi: Presentare budget 2025 al CDA — entro 15/11/2024
+- Alessandro Ferrari: Avviare due diligence tecnologica — entro 30/11/2024
+- Francesca Marino: Piano di remediation DORA — entro 01/11/2024
+- Luca Conti: Pubblicare 15 posizioni prioritarie — entro 25/10/2024

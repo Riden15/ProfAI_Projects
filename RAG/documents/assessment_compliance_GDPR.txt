@@ -1,0 +1,41 @@
+DATATRUST SOLUTIONS — GDPR COMPLIANCE ASSESSMENT 2024
+Documento: DTS-GDPR-2024-001 | Classificazione: RISERVATO
+DPO: Dott.ssa Giulia Moretti (CIPP/E)
+
+EXECUTIVE SUMMARY
+Livello di conformita' complessivo: 87% (vs 82% del 2023).
+Identificati 4 gap da sanare entro H1 2025. Investimento totale: EUR 310.000.
+
+STATO DI CONFORMITA' PER AREA
+
+2.1 BASI GIURIDICHE E CONSENSI — CONFORME (95%)
+OK: Basi giuridiche per tutti i 52 trattamenti censiti nel Registro Art. 30 GDPR
+OK: Sistema di gestione consensi implementato su tutti i canali digitali
+
+2.2 DATA SECURITY — PARZIALMENTE CONFORME (80%)
+OK: Cifratura AES-256 per dati at-rest su tutti i sistemi
+OK: 3 penetration test nel 2024, nessuna vulnerabilita' critica
+GAP-1 (ALTA PRIORITA'): Cifratura TLS 1.3 non completata su 3 sistemi legacy
+
+2.3 GESTIONE DATA BREACH — CONFORME (92%)
+OK: Tempo medio di notifica al Garante: 48 ore (limite GDPR: 72 ore)
+OK: Zero data breach con obbligo di notifica nel 2024
+
+2.4 DIRITTI DEGLI INTERESSATI — PARZIALMENTE CONFORME (78%)
+OK: 15 richieste DSAR gestite nel 2024, tempo medio risposta 25 giorni
+GAP-2 (MEDIA PRIORITA'): Processo Right to Erasure ancora manuale
+GAP-3 (BASSA PRIORITA'): Assenza di portale self-service per gli interessati
+
+2.5 FORMAZIONE — PARZIALMENTE CONFORME (75%)
+GAP-4 (MEDIA PRIORITA'): Formazione GDPR non aggiornata per 45 risorse tecniche
+
+GAP ANALYSIS E PIANO DI REMEDIATION
+GAP-1 | TLS 1.3 sistemi legacy    | Impatto: ALTO  | Deadline: 31/12/2024 | EUR 80.000
+GAP-2 | Automazione Right to Erasure | Impatto: MEDIO | Deadline: 31/03/2025 | EUR 120.000
+GAP-3 | Portale self-service       | Impatto: BASSO | Deadline: 30/06/2025 | EUR 95.000
+GAP-4 | Formazione personale tecnico | Impatto: MEDIO | Deadline: 28/02/2025 | EUR 15.000
+
+RACCOMANDAZIONI
+1. Prioritizzare GAP-1 per evitare sanzioni GDPR (fino al 4% del fatturato)
+2. Adottare piattaforma Privacy Management per automatizzare DSAR
+3. Integrare requisiti GDPR nella nuova piattaforma AI (Privacy by Design)

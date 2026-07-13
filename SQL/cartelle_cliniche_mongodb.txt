@@ -1,0 +1,216 @@
+============================================================
+  PROGETTO: Analisi Cartelle Cliniche - Azienda Ospedaliera
+============================================================
+
+
+============================================================
+FASE 2 - INSERIMENTO DEI DATI DI PROVA
+============================================================
+
+from pymongo import MongoClient
+from datetime import datetime
+
+# Connessione al database
+client = MongoClient("mongodb://localhost:27017/")
+db = client["cartelle_cliniche"]
+pazienti = db["pazienti"]
+
+# Inserimento dei dati di prova
+pazienti.insert_many([
+    {
+        "nome": "Mario Rossi",
+        "ricoveri": [
+            {
+                "data": datetime(2024, 1, 10),
+                "diagnosi": "Polmonite",
+                "anamnesi": "Tosse e febbre alta.",
+                "prognosi": "Favorevole",
+                "data_dimissione": datetime(2024, 1, 20)
+            },
+            {
+                "data": datetime(2024, 6, 5),
+                "diagnosi": "Frattura femore",
+                "anamnesi": "Caduta in casa.",
+                "prognosi": "Buona",
+                "data_dimissione": datetime(2024, 6, 22)
+            }
+        ]
+    },
+    {
+        "nome": "Laura Bianchi",
+        "ricoveri": [
+            {
+                "data": datetime(2024, 2, 14),
+                "diagnosi": "Appendicite",
+                "anamnesi": "Dolore addominale acuto.",
+                "prognosi": "Eccellente",
+                "data_dimissione": datetime(2024, 2, 18)
+            },
+            {
+                "data": datetime(2024, 9, 1),
+                "diagnosi": "Crisi ipertensiva",
+                "anamnesi": "Cefalea intensa.",
+                "prognosi": "Buona",
+                "data_dimissione": datetime(2024, 9, 5)
+            }
+        ]
+    },
+    {
+        "nome": "Giuseppe Verdi",
+        "ricoveri": [
+            {
+                "data": datetime(2023, 11, 20),
+                "diagnosi": "Infarto miocardico",
+                "anamnesi": "Dolore al petto irradiato al braccio.",
+                "prognosi": "Riservata",
+                "data_dimissione": datetime(2023, 12, 2)
+            },
+            {
+                "data": datetime(2024, 4, 8),
+                "diagnosi": "Scompenso cardiaco",
+                "anamnesi": "Dispnea a riposo.",
+                "prognosi": "Discreta",
+                "data_dimissione": datetime(2024, 4, 17)
+            }
+        ]
+    },
+    {
+        "nome": "Anna Conti",
+        "ricoveri": [
+            {
+                "data": datetime(2024, 3, 3),
+                "diagnosi": "Colecistite",
+                "anamnesi": "Dolore addominale post-prandiale.",
+                "prognosi": "Ottima",
+                "data_dimissione": datetime(2024, 3, 8)
+            },
+            {
+                "data": datetime(2024, 10, 15),
+                "diagnosi": "Diabete scompensato",
+                "anamnesi": "Glicemia molto elevata.",
+                "prognosi": "Buona",
+                "data_dimissione": datetime(2024, 10, 22)
+            }
+        ]
+    },
+    {
+        "nome": "Luca Ferrari",
+        "ricoveri": [
+            {
+                "data": datetime(2024, 5, 18),
+                "diagnosi": "Ernia del disco",
+                "anamnesi": "Lombalgia con dolore alla gamba.",
+                "prognosi": "Favorevole",
+                "data_dimissione": datetime(2024, 5, 26)
+            },
+            {
+                "data": datetime(2025, 1, 7),
+                "diagnosi": "Polmonite",
+                "anamnesi": "Febbre alta e difficolta respiratoria.",
+                "prognosi": "Riservata",
+                "data_dimissione": datetime(2025, 1, 21)
+            }
+        ]
+    }
+])
+
+print("Dati inseriti con successo.")
+
+
+============================================================
+FASE 3 - ANALISI DEI TEMPI DI RICOVERO
+============================================================
+
+
+# Tempo medio GLOBALE di ricovero (in giorni)
+
+pipeline_globale = [
+    # Decomponi l'array "ricoveri" in documenti singoli
+    { "$unwind": "$ricoveri" },
+
+    # Calcola la durata in giorni per ogni ricovero
+    {
+        "$project": {
+            "nome": 1,
+            "durata_giorni": {
+                "$divide": [
+                    { "$subtract": ["$ricoveri.data_dimissione", "$ricoveri.data"] },
+                    1000 * 60 * 60 * 24   # conversione da millisecondi a giorni
+                ]
+            }
+        }
+    },
+
+    # Raggruppa tutti i ricoveri e calcola la media globale
+    {
+        "$group": {
+            "_id": None,
+            "media_giorni_globale": { "$avg": "$durata_giorni" },
+            "totale_ricoveri": { "$sum": 1 }
+        }
+    },
+
+    # Formatta il risultato
+    {
+        "$project": {
+            "_id": 0,
+            "media_giorni_globale": { "$round": ["$media_giorni_globale", 2] },
+            "totale_ricoveri": 1
+        }
+    }
+]
+
+risultato_globale = list(pazienti.aggregate(pipeline_globale))
+
+print("Tempo medio globale di ricovero (tutti i pazienti):")
+print(f"  Totale ricoveri analizzati : {risultato_globale[0]['totale_ricoveri']}")
+print(f"  Media giorni di degenza    : {risultato_globale[0]['media_giorni_globale']} giorni")
+
+
+# Tempo medio di ricovero PER PAZIENTE
+
+pipeline_per_paziente = [
+    { "$unwind": "$ricoveri" },
+
+    {
+        "$project": {
+            "nome": 1,
+            "durata_giorni": {
+                "$divide": [
+                    { "$subtract": ["$ricoveri.data_dimissione", "$ricoveri.data"] },
+                    1000 * 60 * 60 * 24
+                ]
+            }
+        }
+    },
+
+    {
+        "$group": {
+            "_id": { "id": "$_id", "nome": "$nome" },
+            "media_giorni": { "$avg": "$durata_giorni" },
+            "num_ricoveri": { "$sum": 1 }
+        }
+    },
+
+    {
+        "$project": {
+            "_id": 0,
+            "nome": "$_id.nome",
+            "num_ricoveri": 1,
+            "media_giorni": { "$round": ["$media_giorni", 2] }
+        }
+    },
+
+    { "$sort": { "nome": 1 } }
+]
+
+risultato_per_paziente = list(pazienti.aggregate(pipeline_per_paziente))
+
+for p in risultato_per_paziente:
+    print(
+        f"Paziente: {p['nome']} "
+        f"| Ricoveri: {p['num_ricoveri']} "
+        f"| Media degenza: {p['media_giorni']} giorni"
+    )
+
+client.close()
