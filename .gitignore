@@ -1,5 +1,7 @@
 .idea
 
+/Pytorch/dataset/
+
 .log
 *.env
 *.pkl
